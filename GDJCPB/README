@@ -1,0 +1,49 @@
+*********************************************************
+Optimization of Generalized Dense Jacobian Chain Products 
+without Memory Constraints
+
+Uwe Naumann, 2020
+*********************************************************
+
+1. To build
+
+make
+
+2. To run
+
+./gdjcpb_generate.exe N M 
+  ... generates problem instance of length N randomly for 
+      bounds on numbers of in/outputs [1,M] and resulting
+      bounds on numbers of edges per factor [2*M,4*M*M]
+
+./gdjcpb_solve.exe file
+  ... runs optimization for problem instance in file
+
+3. Example
+
+./gdjcpb_generate.exe 3 3 >p_3_3.1
+
+might yield file p_3_3.1 with following contents:
+
+3
+3 3 29
+1 3 14
+2 1 7
+
+./gdjcpb_generate.exe p_3_3.1
+
+yields following output:
+
+Dynamic Programming Table:
+C_{1,1}=87; Split=0; Operation=Tangent
+C_{2,2}=14; Split=0; Operation=Adjoint
+C_{2,1}=43; Split=1; Operation=Adjoint
+C_{3,3}=7; Split=0; Operation=Tangent
+C_{3,2}=27; Split=2; Operation=Preaccumulation
+C_{3,1}=56; Split=2; Operation=Preaccumulation
+
+Optimal Cost=56
+
+Cost of homogeneous tangent mode=150
+Cost of homogeneous adjoint mode=100
+Cost of optimal homogeneous global preaccumulation=108+15=123
